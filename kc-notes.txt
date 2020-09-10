@@ -1,1 +1,1 @@
-npm run gooz
+npm start
