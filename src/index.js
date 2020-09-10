@@ -146,7 +146,6 @@ const resolvers = {
     User: {
         posts(parent, args, ctx, info) {
             return posts.filter((post) => {
-                console.dir(parent)
                 return post.author === parent.id
             })
         }
