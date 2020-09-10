@@ -34,14 +34,26 @@ const posts = [{
     body: "a question for all ages?",
     published: false,
     author: '2'
-}
+}]
 
-]
+const comments = [{
+    id: "1000",
+    text: "Really I am floored."
+}, {
+    id: "1001",
+    text: "My world how did I not know this?"
+}, {
+    id: "1002",
+    text: "Thanks for sharing this, but..."
+}, {
+    id: "1003",
+    text: "I never."
+}]
+
 
 // Scalar types: String, Boolean, Int, Float, ID
 
 // Type Definition (Schema)
-
 const typeDefs = ` 
     type Query {
         greeting(name: String): String!
@@ -51,6 +63,7 @@ const typeDefs = `
         posts(query: String): [Post!]!
         add(numbers: [Float!]!): Float!
         grades: [Int!]!
+        comments: [Comment!]!
     }
 
     type User {
@@ -68,9 +81,15 @@ const typeDefs = `
         published: Boolean!
         author: User!
     }
+    
+    type Comment {
+        id: ID!
+        text: String!
+    }
 `
+
 // Resolvers
-//parent, args, ctx, info => types of default arguments passed to resolvers
+// By default parent, args, ctx, info => types of default arguments passed to resolvers
 const resolvers = {
     Query: {
         posts(parent, args, ctx, info) {
@@ -128,6 +147,9 @@ const resolvers = {
                 body: 'It was a delightful day at the slaughter house for happ cows.',
                 published: true
             }
+        },
+        comments(parent, args, ctx, info) {
+                return comments
         }
     },
     // In gql playground when a posts with query is called gql calls the posts resolver
@@ -149,7 +171,12 @@ const resolvers = {
                 return post.author === parent.id
             })
         }
-    }
+    },
+    // Comment: {
+    //     comment(parent, args, ctx, info) {
+    //         return comments;
+    //     }
+    // }
         
 }
 
