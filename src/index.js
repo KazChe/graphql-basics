@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 //Demo user data
 
-const users = [{
+let users = [{
     id: '1',
     name: 'Kimia',
     email: 'kimia@probao.io',
@@ -18,7 +18,7 @@ const users = [{
 }
 ]
 
-const posts = [{
+let posts = [{
     id: "2",
     title: "OPenShift",
     body: "Zoro What a post this is...",
@@ -38,7 +38,7 @@ const posts = [{
     author: '2',
 }]
 
-const comments = [{
+let comments = [{
     id: "1000",
     text: "Really I am floored.",
     post: "2",
@@ -77,10 +77,14 @@ const typeDefs = `
     }
     
     type Mutation {
-        createUser(data: CreateUserInput): User!
-        createPost(data: CreatePostInput): Post!
-        createComment(data: CreateCommentInput): Comment!
+        createUser(data: CreateUserInput!): User!
+        deleteUser(id: ID!): User!
+        createPost(data: CreatePostInput!): Post!
+        deletePost(id: ID!): Post!
+        createComment(data: CreateCommentInput!): Comment!
+        deleteComment(id: ID!): Comment!
     }
+    
     
     input CreateUserInput {
         name: String!
@@ -208,6 +212,30 @@ const resolvers = {
             users.push(user)
             return user
         },
+        deleteUser(parent, args, ctx, info) {
+            const userIndex = users.findIndex((user) =>{
+                return user.id === args.id
+            })
+            if(userIndex === -1) {
+                throw new Error("User does not exist.")
+            }
+            const deletedUsers = users.splice(userIndex, 1) // delete from users array
+            // remove posts and comments
+            posts = posts.filter((post) => {
+                const match = post.author === args.id
+                if(match) {
+                    comments = comments.filter((comment) => {
+                        return comment.post !== post.id
+                    })
+                }
+                return !match
+            })
+            comments = comments.filter((comment) => comment.author !== args.id)
+
+            // return User!
+            return deletedUsers[0]
+
+        },
         createPost(parent, args, ctx, info) {
             const userExists = users.some((user) =>{
                 return user.id === args.data.author
@@ -222,6 +250,19 @@ const resolvers = {
 
             posts.push(post);
             return post;
+        },
+        deletePost(parent, args, ctx, info) {
+            const postIndex = posts.findIndex((post) => post.id === args.id)
+
+            if (postIndex === -1) {
+                throw new Error('Post not found')
+            }
+
+            const deletedPosts = posts.splice(postIndex, 1)
+
+            comments = comments.filter((comment) => comment.post !== args.id)
+
+            return deletedPosts[0]
         },
         createComment(parent, args, ctx, info){
             const userExists = users.some((user) =>{
@@ -240,7 +281,17 @@ const resolvers = {
             }
             comments.push(comment)
             return comment
+        },
+        deleteComment(parent, args, ctx, info) {
+            const commentIndex = comments.findIndex((comment) => comment.id === args.id)
 
+            if (commentIndex === -1) {
+                throw new Error('Comment not found')
+            }
+
+            const deletedComments = comments.splice(commentIndex, 1)
+
+            return deletedComments[0]
         }
     },
     // In gql playground when a posts with query is called gql calls the posts resolver
