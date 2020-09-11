@@ -1,4 +1,5 @@
 import { GraphQLServer } from 'graphql-yoga'
+import uuidv4 from 'uuid/v4'
 
 //Demo user data
 
@@ -171,7 +172,21 @@ const resolvers = {
     },
     Mutation: {
         createUser(parent, args, ctx, info) {
-            console.log(args)
+            const emailToken = users.some((user) => {
+                return user.email === args.email
+            })
+            if(emailToken) {
+                throw new Error("email already exists.")
+            }
+            const user = {
+                id: uuidv4(),
+                name: args.name,
+                email: args.email,
+                age: args.age
+            }
+
+            users.push(user)
+            return user
         }
     },
     // In gql playground when a posts with query is called gql calls the posts resolver

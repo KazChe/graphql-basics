@@ -12,8 +12,9 @@
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "graphql-yoga": "^1.16.7",
-    "neo4j-driver": "^4.1.1"
+    "graphql-yoga": "^1.18.3",
+    "neo4j-driver": "^4.1.1",
+    "uuid": "^8.3.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.4"
