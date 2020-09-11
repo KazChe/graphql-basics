@@ -73,6 +73,11 @@ const typeDefs = `
         grades: [Int!]!
         comments: [Comment!]!
     }
+    
+    type Mutation {
+        createUser(name: String!, email: String! age: Int): User!
+    }
+    
 
     type User {
         id: ID!
@@ -164,6 +169,11 @@ const resolvers = {
                 return comments
         }
     },
+    Mutation: {
+        createUser(parent, args, ctx, info) {
+            console.log(args)
+        }
+    },
     // In gql playground when a posts with query is called gql calls the posts resolver
     // which returns an arrya of posts objects. In post object it sees author field
     // so what gql is gonna do is look at resolvers finds one with author()
@@ -177,7 +187,7 @@ const resolvers = {
             })
         },
         comments(parent, args, ctx, info) {
-            return comments.filter  ((comment) => {
+            return comments.filter((comment) => {
                 return comment.post === parent.id;
             })
         }
