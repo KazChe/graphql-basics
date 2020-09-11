@@ -89,14 +89,14 @@ const typeDefs = `
         body: String!
         published: Boolean!
         author: User!
-      
+        comments: [Comment!]!
     }
     
     type Comment {
         id: ID!
         text: String!
         author: User!
-       
+        post: Post!
     }
 `
 
@@ -175,12 +175,12 @@ const resolvers = {
             return users.find((user) => {
                 return user.id === parent.author
             })
+        },
+        comments(parent, args, ctx, info) {
+            return comments.filter  ((comment) => {
+                return comment.post === parent.id;
+            })
         }
-        // comment(parent, args, ctx, info) {
-        //     return comments.find((comment) => {
-        //         return comment.id === parent.comment;
-        //     })
-        // }
     },
     // parent is User posts and comments are its properties etc
     User: {
@@ -200,6 +200,11 @@ const resolvers = {
         author(parent, args, ctx, info) { // author as Comment.author property
             return users.find((user) => {
                 return user.id === parent.author
+            })
+        },
+        post(parent, args, ctx, info) {
+            return posts.find((post) => {
+                return post.id === parent.post
             })
         }
     },
