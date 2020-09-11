@@ -79,6 +79,7 @@ const typeDefs = `
     type Mutation {
         createUser(name: String!, email: String! age: Int): User!
         createPost(title: String!, body: String!, published: Boolean!, author: ID!): Post!
+        createComment(author: ID!, text: String!, post: ID!): Comment!
     }
     
 
@@ -207,6 +208,27 @@ const resolvers = {
 
             posts.push(post);
             return post;
+        },
+        createComment(parent, args, ctx, info){
+            const userExists = users.some((user) =>{
+                return user.id === args.author
+            })
+            const postExists = posts.some((post) =>{
+                return post.id === args.post && post.published === true
+            })
+            if(!userExists || !postExists) {
+                console.log("userExists", userExists, "postExists", postExists)
+                throw new Error("something is forked.")
+            }
+            const comment = {
+                text: args.text,
+                id: uuidv4(),
+                author: args.author,
+                post: args.post
+            }
+            comments.push(comment)
+            return comment
+
         }
     },
     // In gql playground when a posts with query is called gql calls the posts resolver
