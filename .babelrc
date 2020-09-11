@@ -1,6 +1,8 @@
 {
     "presets": [
         "env"
-        // "gooz"
+    ],
+    "plugins": [
+        "transform-object-rest-spread"
     ]
 }

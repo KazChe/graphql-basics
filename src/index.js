@@ -181,11 +181,10 @@ const resolvers = {
             if(emailToken) {
                 throw new Error("email already exists.")
             }
+            //use object spread operator
             const user = {
                 id: uuidv4(),
-                name: args.name,
-                email: args.email,
-                age: args.age
+                ...args
             }
 
             users.push(user)
@@ -200,10 +199,7 @@ const resolvers = {
             }
             const post = {
                 id: uuidv4(),
-                title: args.title,
-                body: args.body,
-                published: args.published,
-                author: args.author
+                ...args
             }
 
             posts.push(post);
@@ -221,10 +217,8 @@ const resolvers = {
                 throw new Error("something is forked.")
             }
             const comment = {
-                text: args.text,
                 id: uuidv4(),
-                author: args.author,
-                post: args.post
+                ...args
             }
             comments.push(comment)
             return comment
