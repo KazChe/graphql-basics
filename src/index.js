@@ -21,33 +21,41 @@ const posts = [{
     title: "OPenShift",
     body: "Zoro What a post this is...",
     published: true,
-    author: '1'
+    author: '1',
 },{
     id: "123",
     title: "kubernetes on fire",
     body: "what an open kubernetes...?",
     published: false,
-    author: '1'
+    author: '1',
 },{
     id: "321",
     title: "gooz and hearts",
     body: "a question for all ages?",
     published: false,
-    author: '2'
+    author: '2',
 }]
 
 const comments = [{
     id: "1000",
-    text: "Really I am floored."
+    text: "Really I am floored.",
+    post: "2",
+    author: "1"
 }, {
     id: "1001",
-    text: "My world how did I not know this?"
+    text: "My world how did I not know this?",
+    post: "123",
+    author: "1"
 }, {
     id: "1002",
-    text: "Thanks for sharing this, but..."
+    text: "Thanks for sharing this, but...",
+    post: "321",
+    author: "2"
 }, {
     id: "1003",
-    text: "I never."
+    text: "I never.",
+    post: "123",
+    author: "2"
 }]
 
 
@@ -80,11 +88,14 @@ const typeDefs = `
         body: String!
         published: Boolean!
         author: User!
+      
     }
     
     type Comment {
         id: ID!
         text: String!
+        author: User!
+       
     }
 `
 
@@ -164,6 +175,11 @@ const resolvers = {
                 return user.id === parent.author
             })
         }
+        // comment(parent, args, ctx, info) {
+        //     return comments.find((comment) => {
+        //         return comment.id === parent.comment;
+        //     })
+        // }
     },
     User: {
         posts(parent, args, ctx, info) {
@@ -172,11 +188,13 @@ const resolvers = {
             })
         }
     },
-    // Comment: {
-    //     comment(parent, args, ctx, info) {
-    //         return comments;
-    //     }
-    // }
+    Comment: { // think of as Type Comment
+        author(parent, args, ctx, info) { // author as Comment.author property
+            return users.find((user) => {
+                return user.id === parent.author
+            })
+        }
+    },
         
 }
 
