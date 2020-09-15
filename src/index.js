@@ -17,10 +17,6 @@ const server = new GraphQLServer({
         Post,
         Comment,
         Mutation
-    }
+    }})
 
-})
-
-server.start(() => {
-    console.log('GrapgQL Server Running...')
-})
+server.start(() => {console.log('GrapgQL Server Available on http://localhost:4000 ')})
