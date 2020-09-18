@@ -117,7 +117,7 @@ const Mutation =  {
 
         return post;
     },
-    createComment(parent, args, { db }, info){
+    createComment(parent, args, { db, pubsub }, info){
         const userExists =  db.users.some((user) =>{
             return user.id === args.data.author
         })
@@ -132,7 +132,9 @@ const Mutation =  {
             id: uuidv4(),
             ...args.data
         }
-        comments.push(comment)
+        db.comments.push(comment)
+        //publish - takes trigger/channel name and object/payload
+        pubsub.publish(`comment ${args.data.post}`, {comment: comment})
         return comment
     },
     deleteComment(parent, args, { db }, info) {
