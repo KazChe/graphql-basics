@@ -145,6 +145,18 @@ const Mutation =  {
         const deletedComments =  db.comments.splice(commentIndex, 1)
 
         return deletedComments[0]
+    },
+    updateComment(parent, args, { db }, info) {
+        const { data, id } = args
+        const comment = db.comments.find((comment) => comment.id === id)
+
+        if(!comment) {
+            throw new Error("Comment Not Found.")
+        }
+
+        comment.text = data.text
+
+        return comment
     }
 }
 
