@@ -2,6 +2,7 @@
 
 - Building a out a simple GraphQL application from scratch
 - Uses graphql-yoga
+- For Subscription `graphql-subscriptions`
 
 #### Build
 

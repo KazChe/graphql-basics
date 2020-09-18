@@ -153,8 +153,9 @@ const Mutation =  {
         if(!comment) {
             throw new Error("Comment Not Found.")
         }
-
-        comment.text = data.text
+        if(typeof data.text === 'string') {
+            comment.text = data.text
+        }
 
         return comment
     }
