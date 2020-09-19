@@ -7,7 +7,7 @@ import Post from './resolvers/Post'
 import Comment from './resolvers/Comment'
 import Subscription from './resolvers/Subscription'
 
-// websocket underneath
+// websocket underneath and pass it to GraphQLServer during its initialization
 const pubsub = new PubSub()
 
 
