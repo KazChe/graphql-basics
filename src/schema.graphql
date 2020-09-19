@@ -29,7 +29,6 @@ type Subscription {
     post: Post!
 }
 
-
 input CreateUserInput {
     name: String!
     email: String!
