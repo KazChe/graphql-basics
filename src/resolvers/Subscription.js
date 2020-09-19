@@ -25,6 +25,7 @@ const Subscription = {
     post: {
         subscribe(parent, args, { db, pubsub, kimia }, info) {
             console.log(kimia)
+            console.dir(info)
             return pubsub.asyncIterator('post')
             // next we have to publish newly created post
             // this will be done when the post create mutation is run, see Mutations.createPost()
