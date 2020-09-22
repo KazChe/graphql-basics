@@ -30,8 +30,8 @@ const Subscription = {
             // next we have to publish newly created post
             // this will be done when the post create mutation is run, see Mutations.createPost()
         }
+    },
 
-    }
 }
 
 export { Subscription as default }
