@@ -31,7 +31,5 @@ const Subscription = {
             // this will be done when the post create mutation is run, see Mutations.createPost()
         }
     },
-
 }
-
 export { Subscription as default }
