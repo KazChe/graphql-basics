@@ -1,2 +1,3 @@
 npm start
 heroku-db-name= d8npb4o8c433ba
+running-Prisam-docker-container= docker-compose up -d
