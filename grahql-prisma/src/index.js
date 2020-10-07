@@ -6,6 +6,7 @@ import User from './resolvers/User'
 import Post from './resolvers/Post'
 import Comment from './resolvers/Comment'
 import Subscription from './resolvers/Subscription'
+import './prisma'
 
 // websocket underneath and pass it to GraphQLServer during its initialization
 const pubsub = new PubSub()
