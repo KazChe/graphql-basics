@@ -7,6 +7,8 @@ const prisma = new Prisma({
 
 // prisma.query prisma.mutation prisma.subscription prisma.exists
 
-prisma.query.users(null, '{ id name email }').then((data) => {
-    console.log('users: ', data)
+prisma.query.users(null, '{ id name posts { id title } }').then((data) => {
+    console.log(JSON.stringify(data, undefined, 4));
 })
+
+// prisma.query.
