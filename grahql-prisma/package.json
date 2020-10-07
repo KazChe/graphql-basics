@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon src/index.js --ext js,graphql --exec babel-node",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "get-schema": "graphql get-schema -p prisma"
+    "get-schema": "graphql-codegen --config ./codegen.yml"
   },
   "author": "",
   "license": "ISC",
@@ -14,13 +14,14 @@
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "graphql-cli": "^2.16.4",
     "graphql-yoga": "^1.18.3",
     "neo4j-driver": "^4.1.1",
     "prisma-binding": "^2.1.1",
     "uuid": "^8.3.0"
   },
   "devDependencies": {
+    "@graphql-cli/codegen": "^1.17.10",
+    "@graphql-codegen/schema-ast": "^1.17.8",
     "nodemon": "^1.19.4"
   }
 }
