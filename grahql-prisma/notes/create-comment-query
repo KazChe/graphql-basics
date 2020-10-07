@@ -1,0 +1,27 @@
+mutation {
+  createcomment(
+    data:{
+      text: "Look Ma I'm commenting",
+      author: {
+      connect: {
+        id: "ckfzoxq990qml07478cc31qk9"
+      }
+      },
+    post: {
+      connect: {
+        id: "ckfwssndx01si0747imz9cc3c"
+      }
+    }
+    })
+  {
+    id
+    text
+    post {
+      title
+      body
+    }
+    author{
+      name
+    }
+  }
+}
