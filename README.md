@@ -12,6 +12,8 @@
 - The code in the root covers basic from-scratch graphql concepts
 - Code under graphql-prisma includes integration with Postgres db deployed in Heroku, adds Prisma running as Docker cotainer
 and I build Types covered in the from-scratch-code base.
+- Uses [prisma-bindings](https://github.com/prisma-labs/prisma-binding) to interact with nodejs bindings
+- Uses [graphql-cli](https://github.com/Urigo/graphql-cli#readme)
 - Note for setting up graphql-cli this is what worked for me:
 
 ```
