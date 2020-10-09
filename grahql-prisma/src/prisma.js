@@ -48,3 +48,22 @@ prisma.mutation.updatePost({
 }).then((data) => {
     console.log(data)
 })
+
+const createPostForUser = async (authorId, data) => {
+    const post = await prisma.mutation.createPost({
+        data: {
+            ...data,
+            author: {
+                connect: {
+                    id: authorId
+                }
+            }
+        }
+    }, '{ id }')
+    const user = await prisma.query.user({
+        where: {
+            id: authorId
+        }
+    }, '{ id name email posts { id title published } }')
+    return user
+}
