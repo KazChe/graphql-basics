@@ -1,3 +1,5 @@
-npm start
-heroku-db-name= d8npb4o8c433ba
-running-Prisam-docker-container= docker-compose up -d
+- npm start
+- heroku-db-name= d8npb4o8c433ba
+- from inside /grahql-prisma/prisma> run docker-container
+    = /grahql-prisma/prisma docker-compose up -d
+- prisma graphql playground = http://localhost:4466/

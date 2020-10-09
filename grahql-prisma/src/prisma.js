@@ -10,5 +10,3 @@ const prisma = new Prisma({
 prisma.query.users(null, '{ id name posts { id title } }').then((data) => {
     console.log(JSON.stringify(data, undefined, 4));
 })
-
-// prisma.query.
