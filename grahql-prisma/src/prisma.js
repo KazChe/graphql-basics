@@ -11,7 +11,22 @@ const prisma = new Prisma({
 //     // console.log(JSON.stringify(data, undefined, 1));
 //     console.dir(JSON.stringify(data));
 // })
+//
+// prisma.query.comments(null, '{  id text  author { name } }').then(data => {
+//     console.log(JSON.stringify(data, undefined ,2));
+// })
 
-prisma.query.comments(null, '{  id text  author { name } }').then(data => {
-    console.log(JSON.stringify(data, undefined ,2));
+prisma.mutation.createPost({
+    data: {
+        title: "My newly create crap",
+        body: "Kuberentes, the end of days.",
+        published: true,
+        author: {
+            connect: {
+                id: "ckfucxhg201lr074788kvg9xe"
+            }
+        }
+    }
+}, '{ id title body published}').then((data) => {
+    console.log(data)
 })
