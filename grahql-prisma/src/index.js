@@ -14,7 +14,7 @@ const pubsub = new PubSub()
 
 const server = new GraphQLServer({
     typeDefs: './src/schema.graphql',
-    context: { // this is what is passed as contect/ctx used in mutations/subscriton/query etc
+    context: { // this is what is passed as context/ctx used in mutations/subscriton/query etc
         db: db,
         pubsub,
         kimia: "Kimia is Kimi Kimia"
