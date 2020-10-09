@@ -8,25 +8,29 @@ const prisma = new Prisma({
 // prisma.query prisma.mutation prisma.subscription prisma.exists
 
 // prisma.query.users(null, '{ id name posts { id title } }').then((data) => {
-//     // console.log(JSON.stringify(data, undefined, 1));
-//     console.dir(JSON.stringify(data));
+//     console.log(JSON.stringify(data, undefined, 1));
+//     // console.dir(JSON.stringify(data));
 // })
+
+// // prisma.query.comments(null, '{  id text  author { name } }').then(data => {
+// //     console.log(JSON.stringify(data, undefined ,2));
+// // })
 //
-// prisma.query.comments(null, '{  id text  author { name } }').then(data => {
-//     console.log(JSON.stringify(data, undefined ,2));
-// })
 
 prisma.mutation.createPost({
     data: {
-        title: "My newly create crap",
-        body: "Kuberentes, the end of days.",
-        published: true,
+        title: "GraphQL 101",
+        body: "",
+        published: false,
         author: {
             connect: {
                 id: "ckfucxhg201lr074788kvg9xe"
             }
         }
     }
-}, '{ id title body published}').then((data) => {
+}, '{ id title body published }').then((data) => {
     console.log(data)
+    return prisma.query.users(null, '{ id name posts { id title } }')
+}).then((data) => {
+    console.log(JSON.stringify(data, undefined, 2))
 })
